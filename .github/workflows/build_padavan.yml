@@ -247,17 +247,12 @@ jobs:
             - Custom: ${{ inputs.customization }}
           files: trunk/output/*.trx
 
-      - uses: dev-drprasad/delete-older-releases@master
-        if: ${{ inputs.oldreleases }}
+      - name: Delete older releases and workflows
+        uses: ophub/delete-releases-workflows@main
         with:
-          keep_latest: 1
-          keep_min_download_counts: 1
+          delete_releases: ${{ inputs.oldreleases == true || inputs.oldreleases == 'true' || false }}
+          releases_keep_latest: 1
           delete_tags: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: Mattraks/delete-workflow-runs@main
-        if: ${{ inputs.oldworkflow }}
-        with:
-          retain_days: 0
-          keep_minimum_runs: 1
+          delete_workflows: ${{ inputs.oldworkflow == true || inputs.oldworkflow == 'true' || false }}
+          workflows_keep_day: 0
+          gh_token: ${{ secrets.GITHUB_TOKEN }}
