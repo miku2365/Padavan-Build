@@ -148,9 +148,14 @@ jobs:
       - name: Install Build Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y \
-            bison flex gperf help2man libtool-bin texinfo python3-docutils autopoint gettext ccache \
-            autoconf automake liblzma-dev libltdl-dev liblzo2-dev jq libatomic1 
+          sudo apt-get install --no-install-recommends -y \
+            autoconf automake autopoint binutils bison build-essential \
+            ccache cmake cpio curl doxygen dos2unix \
+            fakeroot flex gawk gcc-multilib gettext git gperf \
+            help2man jq kmod libarchive-tools libatomic1 libblkid-dev \
+            libgmp3-dev libltdl-dev liblzo2-dev liblzma-dev libmpfr-dev \
+            libncurses5-dev libsqlite3-dev libtool libtool-bin locales \
+            pkg-config po4a python3-docutils texinfo unzip wget xxd zlib1g-dev
           echo "BUILD_DATE=$(TZ='Asia/Shanghai' date +%Y%m%d)" >> $GITHUB_ENV
 
       - name: Validate Input JSON
